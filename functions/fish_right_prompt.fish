@@ -206,11 +206,11 @@ function __budspencer_prompt_repo_symbols -d 'Displays the repo symbols'
           end
           if [ $repo_status[2] -gt 0 ]
             set_color -o $budspencer_colors[7]
-            echo -n ' '
+            echo -n ' D'
           end
           if [ $repo_status[3] -gt 0 ]
             set_color -o $budspencer_colors[10]
-            echo -n ' ✱'
+            echo -n ' *'
           end
           if [ $repo_status[4] -gt 0 ]
             set_color -o $budspencer_colors[8]

@@ -768,7 +768,7 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
             set symbols $symbols(set_color -o $budspencer_colors[10])' ⌘'
         end
         if set -q -x VIM
-            set symbols $symbols(set_color -o $budspencer_colors[9])' V'
+            set symbols $symbols(set_color -o $budspencer_colors[9])' '
             set symbols_urgent T
         end
         if set -q -x RANGER_LEVEL
@@ -776,11 +776,11 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
             set symbols_urgent T
         end
         if [ $jobs -gt 0 ]
-            set symbols $symbols(set_color -o $budspencer_colors[11])' ⚙'
+            set symbols $symbols(set_color -o $budspencer_colors[11])' '
             set symbols_urgent T
         end
         if [ ! -w . ]
-            set symbols $symbols(set_color -o $budspencer_colors[6])' '
+            set symbols $symbols(set_color -o $budspencer_colors[6])' '
         end
         if [ $todo -gt 0 ]
             set symbols $symbols(set_color -o $budspencer_colors[4])
@@ -789,11 +789,11 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
             set symbols $symbols(set_color -o $budspencer_colors[8])
         end
         if [ (expr $todo + $overdue) -gt 0 ]
-            set symbols $symbols' ⚔'
+            set symbols $symbols' '
             set symbols_urgent T
         end
         if [ $appointments -gt 0 ]
-            set symbols $symbols(set_color -o $budspencer_colors[5])' ⚑'
+            set symbols $symbols(set_color -o $budspencer_colors[5])' '
             set symbols_urgent T
         end
         if [ $last_status -eq 0 ]
