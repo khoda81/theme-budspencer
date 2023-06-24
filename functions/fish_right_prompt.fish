@@ -194,19 +194,19 @@ function __budspencer_prompt_repo_symbols -d 'Displays the repo symbols'
         if [ $symbols_style = 'symbols' ]
           if [ $repo_ahead_behind[1] -gt 0 ]
             set_color -o $budspencer_colors[5]
-            echo -n ' ↑'
+            echo -n ' '
           end
           if [ $repo_ahead_behind[2] -gt 0 ]
             set_color -o $budspencer_colors[5]
-            echo -n ' ↓'
+            echo -n ' '
           end
           if [ $repo_status[1] -gt 0 ]
             set_color -o $budspencer_colors[12]
-            echo -n ' +'
+            echo -n ' '
           end
           if [ $repo_status[2] -gt 0 ]
             set_color -o $budspencer_colors[7]
-            echo -n ' –'
+            echo -n ' '
           end
           if [ $repo_status[3] -gt 0 ]
             set_color -o $budspencer_colors[10]
@@ -214,7 +214,7 @@ function __budspencer_prompt_repo_symbols -d 'Displays the repo symbols'
           end
           if [ $repo_status[4] -gt 0 ]
             set_color -o $budspencer_colors[8]
-            echo -n ' →'
+            echo -n ' '
           end
           if [ $repo_status[5] -gt 0 ]
             set_color -o $budspencer_colors[9]
@@ -222,11 +222,11 @@ function __budspencer_prompt_repo_symbols -d 'Displays the repo symbols'
           end
           if [ $repo_status[6] -gt 0 ]
             set_color -o $budspencer_colors[4]
-            echo -n ' ●'
+            echo -n ' '
           end
           if [ $repo_stashed -gt 0 ]
             set_color -o $budspencer_colors[11]
-            echo -n ' ✭'
+            echo -n ' '
           end
         else
           if [ $repo_ahead_behind[1] -gt 0 ]
