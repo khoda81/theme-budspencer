@@ -794,9 +794,9 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
             set symbols_urgent 'T'
         end
         if [ $last_status -eq 0 ]
-            set symbols $symbols(set_color -o $budspencer_colors[12])' ✓'
+            set symbols $symbols(set_color -o $budspencer_colors[12])' '
         else
-            set symbols $symbols(set_color -o $budspencer_colors[7])' ✘'
+            set symbols $symbols(set_color -o $budspencer_colors[7])' '
         end
         if [ $USER = 'root' ]
             set symbols $symbols(set_color -o $budspencer_colors[6])' ⚡'
