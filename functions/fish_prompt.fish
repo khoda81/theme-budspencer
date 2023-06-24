@@ -724,6 +724,8 @@ function __budspencer_prompt_bindmode -d 'Displays the current mode'
     if [ (count $budspencer_prompt_error) -eq 1 ]
         set budspencer_current_bindmode_color $budspencer_colors[7]
     end
+    set_color $budspencer_current_bindmode_color
+    echo -n ''
     set_color -b $budspencer_current_bindmode_color $budspencer_colors[1]
     switch $pwd_style
         case short long
@@ -800,7 +802,7 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
             set symbols $symbols(set_color -o $budspencer_colors[7])' '
         end
         if [ $USER = root ]
-            set symbols $symbols(set_color -o $budspencer_colors[6])' ⚡'
+            set symbols $symbols(set_color -o $budspencer_colors[6])' '
             set symbols_urgent T
         end
     else
@@ -846,7 +848,7 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
             set symbols $symbols(set_color $budspencer_colors[7])' '$last_status
         end
         if [ $USER = root ]
-            set symbols $symbols(set_color -o $budspencer_colors[6])' ⚡'
+            set symbols $symbols(set_color -o $budspencer_colors[6])' '
             set symbols_urgent T
         end
     end

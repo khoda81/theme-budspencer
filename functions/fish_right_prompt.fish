@@ -305,6 +305,9 @@ function __budspencer_prompt_pwd -d 'Displays the present working directory'
     set -e budspencer_prompt_error[1]
   end
   set_color normal
+  set_color $budspencer_current_bindmode_color
+  echo -n ''
+  set_color normal
 end
 
 ###############################################################################
