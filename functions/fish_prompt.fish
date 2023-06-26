@@ -341,7 +341,7 @@ end
 ##############
 function mark -d 'Create bookmark for present working directory.'
     if not contains $PWD $bookmarks
-        set -U bookmarks $PWD $bookmarks
+        set -a bookmarks $PWD
         set pwd_hist_lock true
         commandline -f repaint
     end
@@ -760,10 +760,15 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
     end
 
     if [ $symbols_style = symbols ]
+        if test (git -C ~/.config status --show-stash --short)
+            set symbols $symbols(set_color -o $budspencer_colors[7])' '
+        end
+
         if [ $budspencer_session_current != '' ]
             set symbols $symbols(set_color -o $budspencer_colors[8])' ✻'
             set symbols_urgent T
         end
+
         if contains $PWD $bookmarks
             set symbols $symbols(set_color -o $budspencer_colors[10])' ⌘'
         end
@@ -796,16 +801,21 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
             set symbols $symbols(set_color -o $budspencer_colors[5])' '
             set symbols_urgent T
         end
+
         if [ $last_status -eq 0 ]
             set symbols $symbols(set_color -o $budspencer_colors[12])' '
         else
-            set symbols $symbols(set_color -o $budspencer_colors[7])' '
+            set symbols $symbols(set_color -o $budspencer_colors[7])' '$last_status
         end
+
         if [ $USER = root ]
             set symbols $symbols(set_color -o $budspencer_colors[6])' '
             set symbols_urgent T
         end
     else
+        if test (git -C ~/.config status --show-stash --short)
+            set symbols $symbols(set_color -o $budspencer_colors[7])' '
+        end
         if [ $budspencer_session_current != '' ] 2>/dev/null
             set symbols $symbols(set_color $budspencer_colors[8])' '(expr (count $budspencer_sessions) - (contains -i $budspencer_session_current $budspencer_sessions))
             set symbols_urgent T
@@ -914,8 +924,12 @@ end
 if not set -q budspencer_pwdstyle
     set -U budspencer_pwdstyle short long none
 end
-set pwd_style $budspencer_pwdstyle[1]
 
+if not set -q pwd_style
+    set -U pwd_style $budspencer_pwdstyle[2]
+end
+
+# TODO: cd to most frequent bookmark (or history?)
 # Cd to newest bookmark if this is a login shell
 if not begin
         set -q -x LOGIN
