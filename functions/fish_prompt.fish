@@ -950,6 +950,7 @@ set -x LOGIN $USER
 
 function kill_handler --on-signal WINCH
     echo hi
+    commandline -f repaint
     set -l mypid %self
     set -l value (eval echo "\$prompt_$mypid")
     set -g _fish_prompt_updated (echo " (updated $value)")
@@ -964,7 +965,7 @@ function fish_prompt -d 'Write out the left prompt of the budspencer theme'
         if not set -q _fish_prompt_update_running
             echo running
             set -g _fish_prompt_update_running
-            ./async.fish %self &
+            fish ./functions/async.fish %self &
         end
     end
 
