@@ -760,7 +760,7 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
     end
 
     if [ $symbols_style = symbols ]
-        if test (git -C ~/.config status --show-stash --short)
+        if test "$(git -C ~/.config status --show-stash --short)"
             set symbols $symbols(set_color -o $budspencer_colors[7])' '
         end
 
@@ -813,7 +813,7 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
             set symbols_urgent T
         end
     else
-        if test (git -C ~/.config status --show-stash --short)
+        if test "$(git -C ~/.config status --show-stash --short)"
             set symbols $symbols(set_color -o $budspencer_colors[7])' '
         end
         if [ $budspencer_session_current != '' ] 2>/dev/null
