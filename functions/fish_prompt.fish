@@ -948,7 +948,25 @@ set -x LOGIN $USER
 # => Left prompt
 ###############################################################################
 
+function kill_handler --on-signal WINCH
+    echo hi
+    set -l mypid %self
+    set -l value (eval echo "\$prompt_$mypid")
+    set -g _fish_prompt_updated (echo " (updated $value)")
+    set -e _fish_prompt_update_running
+end
+
 function fish_prompt -d 'Write out the left prompt of the budspencer theme'
     set -g last_status $status
+
+    set -l updated "$_fish_prompt_updated"
+    if test "$updated" = ""
+        if not set -q _fish_prompt_update_running
+            echo running
+            set -g _fish_prompt_update_running
+            ./async.fish %self &
+        end
+    end
+
     echo -n -s (__budspencer_prompt_bindmode) (__budspencer_prompt_virtual_env) (__budspencer_prompt_node_version) (__budspencer_prompt_repo_branch) (__budspencer_prompt_left_symbols) ' ' (set_color normal)
 end

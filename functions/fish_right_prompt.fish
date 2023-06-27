@@ -321,18 +321,6 @@ function __budspencer_prompt_clock -d 'Displays the current time'
     echo -n ' '(date +%T)' '
 end
 
-function __prompt_sync
-    commandline -f repaint
-    __promp_syncer &
-end
-
-function __promp_syncer
-    sleep 1
-    __prompt_sync
-end
-
-commandline -f repaint
-
 ###############################################################################
 # => Prompt
 ###############################################################################
