@@ -781,7 +781,7 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
             set symbols_urgent T
         end
         if [ $jobs -gt 0 ]
-            set symbols $symbols(set_color -o $budspencer_colors[11])' '
+            set symbols $symbols(set_color -o $budspencer_colors[11])' '$jobs
             set symbols_urgent T
         end
         if [ ! -w . ]
