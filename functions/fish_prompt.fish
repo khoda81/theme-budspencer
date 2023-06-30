@@ -948,6 +948,10 @@ set -x LOGIN $USER
 # => Left prompt
 ###############################################################################
 
+function __prompt_sync --on-variable __prompt_sync
+    commandline -f repaint
+end
+
 function fish_prompt -d 'Write out the left prompt of the budspencer theme'
     set -g last_status $status
     echo -n -s (__budspencer_prompt_bindmode) (__budspencer_prompt_virtual_env) (__budspencer_prompt_node_version) (__budspencer_prompt_repo_branch) (__budspencer_prompt_left_symbols) ' ' (set_color normal)

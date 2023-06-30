@@ -71,33 +71,58 @@ end
 #############################
 
 function __budspencer_cmd_duration -d 'Displays the elapsed time of last command'
-    set -l seconds ''
-    set -l minutes ''
-    set -l hours ''
-    set -l days ''
+    set -l duration $CMD_DURATION
 
-    set -l cmd_duration (math -s0 $CMD_DURATION / 1000)
-    if [ $cmd_duration -gt 0 ]
-        set seconds (math -s0 $cmd_duration % 60)'s'
-        if [ $cmd_duration -ge 60 ]
-            set minutes (math -s0 $cmd_duration % 3600 / 60)'m'
-            if [ $cmd_duration -ge 3600 ]
-                set hours (math -s0 $cmd_duration % 86400 / 3600)'h'
-                if [ $cmd_duration -ge 86400 ]
-                    set days (math -s0 $cmd_duration / 86400)'d'
-                end
-            end
-        end
+    if [ $duration -gt 0 ]
         set_color $budspencer_colors[2]
         echo -n ''
+
         switch $pwd_style
             case short long
                 if [ $last_status -ne 0 ]
-                    echo -n (set_color -b $budspencer_colors[2] $budspencer_colors[7])' '$days$hours$minutes$seconds' '
+                    set_color -b $budspencer_colors[2] $budspencer_colors[7]
                 else
-                    echo -n (set_color -b $budspencer_colors[2] $budspencer_colors[12])' '$days$hours$minutes$seconds' '
+                    set_color -b $budspencer_colors[2] $budspencer_colors[12]
                 end
         end
+
+        set -l remainder $duration
+        set -l millis (math $remainder % 1000)
+        set remainder (math $remainder / 1000)
+        set -l secs (math $remainder % 60)
+        set remainder (math $remainder / 60)
+        set -l mins (math $remainder % 60)
+        set remainder (math $remainder / 60)
+        set -l hours (math $remainder % 24)
+        set remainder (math $remainder / 24)
+        set -l days $remainder
+
+        echo -n ' '
+        if [ $days -ge 1 ]
+            echo -n (math -s0 $days)'d'
+            set hours (math round\($hours\))
+            if [ $hours -gt 0 ]
+                echo -n $hours'h'
+            end
+        else if [ $hours -ge 1 ]
+            echo -n (math -s0 $hours)'h'
+            set mins (math round\($mins\))
+            if [ $mins -gt 0 ]
+                echo -n $mins'm'
+            end
+        else if [ $mins -ge 1 ]
+            echo -n (math -s0 $mins)'m'
+            set secs (math round\($secs\))
+            if [ $secs -gt 0 ]
+                echo -n $secs's'
+            end
+        else if [ $secs -ge 1 ]
+            echo -n (math round\($secs \* 10\) / 10)'s'
+        else
+            echo -n $millis'ms'
+        end
+        echo -n ' '
+
         set_color -b $budspencer_colors[2]
     end
 end
@@ -107,7 +132,7 @@ end
 ################
 function __budspencer_is_git_ahead_or_behind -d 'Check if there are unpulled or unpushed commits'
     if set -l ahead_or_behind (command git rev-list --count --left-right 'HEAD...@{upstream}' 2> /dev/null)
-        echo $ahead_or_behind | sed 's|[[:space:]]|\n|g'
+        echo $ahead_or_behind | sed 's | [[:space:]] | \n | g'
     else
         echo 0\n0
     end
@@ -317,7 +342,7 @@ end
 function __budspencer_prompt_clock -d 'Displays the current time'
     set_color $budspencer_colors[6]
     echo -n ''
-    set_color -b $budspencer_colors[6] $budspencer_colors[1]
+    set_color -o -b $budspencer_colors[6] $budspencer_colors[1]
     echo -n ' '(date +%T)' '
 end
 
