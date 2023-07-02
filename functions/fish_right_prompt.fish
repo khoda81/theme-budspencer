@@ -132,7 +132,7 @@ end
 ################
 function __budspencer_is_git_ahead_or_behind -d 'Check if there are unpulled or unpushed commits'
     if set -l ahead_or_behind (command git rev-list --count --left-right 'HEAD...@{upstream}' 2> /dev/null)
-        echo $ahead_or_behind | sed 's | [[:space:]] | \n | g'
+        echo $ahead_or_behind | sed 's|[[:space:]]|\n|g'
     else
         echo 0\n0
     end
@@ -351,6 +351,8 @@ end
 ###############################################################################
 
 function fish_right_prompt -d 'Write out the right prompt of the budspencer theme'
+    # make these async
+    # echo -n -s (__budspencer_cmd_duration) (__budspencer_prompt_clock) (__budspencer_prompt_pwd)
     echo -n -s (__budspencer_cmd_duration) (__budspencer_prompt_clock) (__budspencer_prompt_repo_symbols) (__budspencer_prompt_pwd)
     set_color normal
 end

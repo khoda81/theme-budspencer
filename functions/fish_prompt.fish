@@ -948,7 +948,9 @@ set -x LOGIN $USER
 # => Left prompt
 ###############################################################################
 
-function __prompt_sync --on-variable __prompt_sync
+fish (dirname (status --current-filename))'/update_time.fish' & disown
+
+function __prompt_sync --on-variable time
     commandline -f repaint
 end
 
