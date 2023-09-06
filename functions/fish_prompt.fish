@@ -760,7 +760,7 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
     end
 
     if [ $symbols_style = symbols ]
-        if test "$(git -C ~/.config status --show-stash --short)"
+        if not git -C ~/.config diff --exit-code --quiet
             set symbols $symbols(set_color -o $budspencer_colors[7])' '
         end
 
@@ -813,7 +813,7 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
             set symbols_urgent T
         end
     else
-        if test "$(git -C ~/.config status --show-stash --short)"
+        if not git -C ~/.config diff --exit-code --quiet
             set symbols $symbols(set_color -o $budspencer_colors[7])' '
         end
         if [ $budspencer_session_current != '' ] 2>/dev/null
@@ -955,6 +955,13 @@ function __prompt_sync --on-variable time
 end
 
 function fish_prompt -d 'Write out the left prompt of the budspencer theme'
+    # If svn is not installed ask the user to install svn
+    if not type --quiet svn
+        echo "Please install `svn`!"
+        echo "Setting omf theme to default (omf theme default)."
+        omf theme default
+    end
+
     set -g last_status $status
     echo -n -s (__budspencer_prompt_bindmode) (__budspencer_prompt_virtual_env) (__budspencer_prompt_node_version) (__budspencer_prompt_repo_branch) (__budspencer_prompt_left_symbols) ' ' (set_color normal)
 end
