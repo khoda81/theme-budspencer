@@ -956,11 +956,13 @@ end
 
 function fish_prompt -d 'Write out the left prompt of the budspencer theme'
     # If svn is not installed ask the user to install svn
-    if not type --quiet svn
-        echo "Please install `svn`!"
-        echo "Setting omf theme to default (omf theme default)."
-        omf theme default
-    end
+    # TODO: implement a better check for svn, git, etc.
+    # Commenting as the type command is extremely slow
+    # if not type --quiet svn
+    #     echo "Please install `svn`!"
+    #     echo "Setting omf theme to default (omf theme default)."
+    #     omf theme default
+    # end
 
     set -g last_status $status
     echo -n -s (__budspencer_prompt_bindmode) (__budspencer_prompt_virtual_env) (__budspencer_prompt_node_version) (__budspencer_prompt_repo_branch) (__budspencer_prompt_left_symbols) ' ' (set_color normal)
