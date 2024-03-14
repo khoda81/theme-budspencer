@@ -5,6 +5,7 @@ while true
     set -U time (date +%s)
 
     if [ $time_updator_pid != %self ]
+        # TODO: don't break out of the loop and activate when the current updator is dead
         break
     end
 end
