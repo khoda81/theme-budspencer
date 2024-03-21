@@ -71,7 +71,9 @@ if set -q budspencer_nobell
 else
     # Ring only if the comand took more than 10s 
     function __budspencer_urgency -d 'Ring the bell in order to set the urgency hint flag.'
-        echo -n \a
+        if [ $CMD_DURATION -gt 10000 ]
+            echo -n \a 
+        end
     end
 end
 

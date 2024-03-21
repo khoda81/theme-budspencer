@@ -291,6 +291,7 @@ function __budspencer_prompt_repo_symbols -d 'Displays the repo symbols'
                         echo -n ' '$repo_stashed
                     end
                 end
+                echo -n ' '
                 set_color -b $budspencer_colors[3] normal
                 echo -n ' '
         end
